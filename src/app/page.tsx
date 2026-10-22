@@ -13,7 +13,7 @@ const copy = {
   en: {
     nav: ['Products', 'About us', 'Blog', 'Our impact', 'Contact'],
     problemLabel: 'WHO WE ARE',
-    problemTitle: 'Improving Access to Medicines in Africa',
+    problemTitle: 'Improving Access to Medicines in Africa using technology solutions',
     problemText: 'Founded in Dar es Salaam in 2023, Dawa Mkononi helps pharmacies, clinics and dispensaries access reliable medicines, get stock credit, and manage inventory, orders and daily operations with simple digital tools.',
     howLabel: 'HOW WE WORK', howTitle: ['Order what you need,', 'wherever you are.'],
     steps: [['01', 'Join Dawa Mkononi', 'Register your pharmacy, clinic or dispensary with our team and get set up on the app.'], ['02', 'Choose and order', 'Find medicines in the app or ask Nora to help prepare your order. Review it, then confirm.'], ['03', 'Receive your medicines', 'Our team processes your order and arranges delivery to your facility.'], ['04', 'Pay within 28 days', 'Eligible facilities can receive medicine stock on Dawa Kwanza credit and repay within 28 days. You can also pay at checkout with Selcom Pay.']],
@@ -24,7 +24,7 @@ const copy = {
   sw: {
     nav: ['Bidhaa', 'Kuhusu sisi', 'Blogu', 'Athari', 'Mawasiliano'],
     problemLabel: 'SISI NI NANI',
-    problemTitle: 'Kuboresha upatikanaji wa dawa barani Afrika',
+    problemTitle: 'Kuboresha upatikanaji wa dawa barani Afrika kwa kutumia suluhisho za teknolojia',
     problemText: 'Ilianzishwa Dar es Salaam mwaka 2023, Dawa Mkononi husaidia famasia, kliniki na zahanati kupata dawa na mkopo wa stoo, na kusimamia bidhaa, oda na shughuli za kila siku kwa kutumia zana rahisi za kidijitali.',
     howLabel: 'JINSI TUNAVYOFANYA KAZI', howTitle: ['Agiza unachohitaji,', 'popote ulipo.'],
     steps: [['01', 'Jiunge na Dawa Mkononi', 'Sajili famasia, kliniki au zahanati yako kwa timu yetu na ufungue akaunti kwenye programu.'], ['02', 'Chagua na uagize', 'Tafuta dawa kwenye programu au mwombe Nora akusaidie kuandaa oda. Kagua kisha thibitisha.'], ['03', 'Pokea dawa kituoni', 'Timu yetu huchakata oda yako na kupanga dawa zifikishwe kwenye kituo chako.'], ['04', 'Lipa ndani ya siku 28', 'Vituo vinavyostahili vinaweza kupata dawa kwa mkopo wa Dawa Kwanza na kulipa ndani ya siku 28. Pia unaweza kulipa wakati wa kuagiza kupitia Selcom Pay.']],
@@ -147,10 +147,7 @@ export default function HomePage() {
                 <span aria-hidden="true" className="h-px w-8 bg-[#d6a53c]" />
                 {t.problemLabel}
               </span>
-              <span className={`mt-3 block max-w-[420px] font-asap text-[clamp(34px,3.2vw,46px)] font-bold leading-[1.12] tracking-[-0.045em] text-white transition-all delay-75 duration-700 ease-out ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100'}`}>
-                {lang === 'en' ? 'Medicine supply,' : 'Ugavi wa dawa,'}
-              </span>
-              <h2 id="about-title" className={`mt-2 max-w-[420px] font-asap text-[clamp(34px,3.2vw,46px)] font-bold leading-[1.12] tracking-[-0.045em] text-white transition-all delay-100 duration-700 ease-out ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100'}`}>
+              <h2 id="about-title" className={`mt-3 max-w-[460px] font-asap text-[clamp(34px,3.2vw,46px)] font-bold leading-[1.12] tracking-[-0.045em] text-white transition-all delay-100 duration-700 ease-out ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100'}`}>
                 {t.problemTitle}
               </h2>
               <p className={`mt-5 inline-flex items-center gap-2 text-sm font-medium text-white/75 transition-all delay-200 duration-700 ease-out ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100'}`}>
@@ -184,12 +181,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <section aria-labelledby="investors-title" className="mt-7 rounded-2xl border border-[#eee8e4] bg-white px-5 py-5 shadow-[0_15px_40px_rgba(20,15,15,0.16)] sm:mt-9 sm:px-8 sm:py-6">
+          <section aria-labelledby="investors-title" className="mt-7 rounded-2xl border border-[#eee8e4] bg-white px-5 py-3.5 shadow-[0_15px_40px_rgba(20,15,15,0.16)] sm:mt-9 sm:px-8 sm:py-4">
             <h2 id="investors-title" className="flex items-center justify-center gap-2.5 text-center font-asap text-xs font-bold uppercase tracking-[0.16em] text-[#321e20]">
               <span aria-hidden="true" className="h-px w-7 bg-[#321e20]" />
               {lang === 'en' ? 'Our Valued Investors' : 'Wawekezaji Wetu'}
             </h2>
-            <div className="mx-auto mt-5 grid max-w-[1160px] grid-cols-5 items-center gap-4 max-[680px]:grid-cols-2 max-[680px]:[&>div:last-child]:col-span-2 max-[680px]:[&>div:last-child]:mx-auto max-[680px]:[&>div:last-child]:w-1/2 sm:mt-6 sm:gap-8">
+            <div className="mx-auto mt-3 grid max-w-[1160px] grid-cols-5 items-center gap-4 max-[680px]:grid-cols-2 max-[680px]:[&>div:last-child]:col-span-2 max-[680px]:[&>div:last-child]:mx-auto max-[680px]:[&>div:last-child]:w-1/2 sm:mt-3 sm:gap-8">
               {[
                 ['/image copy 3.png', 'Warioba Ventures'],
                 ['/image copy 2.png', 'Villgro Africa'],
@@ -203,7 +200,7 @@ export default function HomePage() {
                   style={{ transitionDelay: aboutVisible ? `${index * 160}ms` : '0ms' }}
                 >
                   <div className="group rounded-xl transition duration-300 ease-out hover:-translate-y-1 hover:scale-105 hover:shadow-[0_10px_22px_rgba(35,35,35,0.1)]">
-                    <Image src={src} alt={name} width={272} height={88} className="mx-auto h-12 w-full rounded-xl object-contain transition duration-300 group-hover:drop-shadow-[0_5px_8px_rgba(35,35,35,0.14)] sm:h-[52px]" />
+                    <Image src={src} alt={name} width={272} height={88} className="mx-auto h-10 w-full rounded-xl object-contain transition duration-300 group-hover:drop-shadow-[0_5px_8px_rgba(35,35,35,0.14)] sm:h-11" />
                   </div>
                 </div>
               ))}
@@ -218,9 +215,9 @@ export default function HomePage() {
             <span className="inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.16em] text-[#ED2B2C]"><span aria-hidden="true" className="h-px w-7 bg-[#ED2B2C]" />{t.howLabel}</span>
             <h2 className="mx-auto mt-4 max-w-[620px] font-asap text-[clamp(28px,3.2vw,38px)] font-bold leading-[1.12] tracking-[-0.04em] text-[#321e20]"><span className="block">{t.howTitle[0]}</span><span className="block">{t.howTitle[1]}</span></h2>
           </div>
-          <div className="mt-20 grid grid-cols-[0.82fr_1.18fr] items-start gap-14 lg:mt-24 lg:gap-16 max-[760px]:grid-cols-1 max-[760px]:gap-9">
-            <div className="mx-auto w-full max-w-[440px] max-[760px]:max-w-[360px]">
-              <div id="impact" tabIndex={0} role="group" aria-label={lang === 'en' ? 'Dawa Mkononi impact statistics' : 'Takwimu za matokeo ya Dawa Mkononi'} className="group relative aspect-[0.94] w-full overflow-hidden rounded-[42%_42%_30px_30px] shadow-[0_24px_55px_rgba(68,29,31,0.15)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ED2B2C]">
+          <div className="mt-20 grid grid-cols-[0.82fr_1.18fr] items-stretch gap-14 lg:mt-24 lg:gap-16 max-[760px]:grid-cols-1 max-[760px]:gap-9">
+            <div className="mx-auto w-full max-w-[440px] min-[761px]:pb-[57px] max-[760px]:max-w-[360px]">
+              <div id="impact" tabIndex={0} role="group" aria-label={lang === 'en' ? 'Dawa Mkononi impact statistics' : 'Takwimu za matokeo ya Dawa Mkononi'} className="group relative aspect-[0.94] min-[761px]:aspect-auto min-[761px]:h-full w-full overflow-hidden rounded-[42%_42%_30px_30px] shadow-[0_24px_55px_rgba(68,29,31,0.15)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ED2B2C]">
                 <Image src="/bodaman.png" alt={lang === 'en' ? 'Dawa Mkononi delivery rider ready to bring medicines to a health facility' : 'Mwendesha bodaboda wa Dawa Mkononi akiwa tayari kupeleka dawa kituoni'} fill sizes="(max-width: 760px) 90vw, 440px" className="object-cover object-center" />
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-[760px]:opacity-100" />
                 {t.impact.map(([value, label], index) => (

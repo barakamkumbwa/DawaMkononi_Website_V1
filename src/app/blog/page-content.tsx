@@ -20,7 +20,7 @@ export default function BlogPage() {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-      <main id="top" className="bg-white pt-[72px] font-asap sm:pt-[118px]">
+      <main id="top" className="bg-white pt-16 font-asap sm:pt-24">
         <section className="relative isolate flex min-h-[300px] items-start justify-center overflow-hidden px-5 pb-28 pt-10 text-center text-white sm:min-h-[340px] sm:pt-12">
           <Image src="/pharmacist holding medicine.jpeg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_30%]" aria-hidden="true" />
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(25,28,29,0.72)_0%,rgba(25,28,29,0.55)_55%,rgba(25,28,29,0.8)_100%)]" />

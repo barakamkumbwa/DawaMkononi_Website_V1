@@ -75,7 +75,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-      <main className="pt-[72px] font-asap sm:pt-[118px]">
+      <main className="pt-16 font-asap sm:pt-24">
         <section ref={heroRef} className={`${heroVisible ? 'is-visible ' : ''}relative isolate w-full overflow-hidden bg-[#191c1d] py-12 text-white sm:py-16 lg:py-20`}>
           <div aria-hidden="true" className="about-map pointer-events-none absolute inset-0 z-0">
             <Image src="/africamap-transparent.png" alt="" fill sizes="100vw" priority className="object-contain object-[right_42%] opacity-55 brightness-[0.9] contrast-125 sm:object-[right_38%]" />

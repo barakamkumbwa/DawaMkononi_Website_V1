@@ -2,10 +2,8 @@
 
 import Image from 'next/image'
 import { useEffect, useState, type ReactNode } from 'react'
-import { Check, Pill } from 'lucide-react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
-import { TopographyLines } from '@/components/sections/TopographyLines'
 import { getProductPage } from '@/lib/products'
 import { delay, useReveal } from '@/lib/use-reveal'
 
@@ -63,22 +61,12 @@ export default function ProductPageContent({ slug }: { slug: string }) {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-      <main className="pt-[72px] font-asap sm:pt-[118px]">
-        <DarkSection image={product.image}>
-          <div className="mx-auto flex max-w-[860px] flex-col items-center py-16 text-center max-[760px]:py-10">
-            <Label text={product.name.toUpperCase()} />
-            <h1 className="reveal mt-3 max-w-[720px] text-[clamp(34px,3.6vw,50px)] font-bold leading-[1.08] tracking-[-0.045em] text-white" style={delay(120)}>{product.headline[lang]}</h1>
-            <p className="reveal mt-5 inline-flex items-center gap-2 text-sm font-medium text-white/70" style={delay(240)}>
-              <Pill size={16} className="shrink-0 text-[#e2b85d]" aria-hidden="true" />{product.tagline?.[lang] ?? product.eyebrow[lang]}
-            </p>
-          </div>
-        </DarkSection>
+      <main className="font-asap">
+        <ProductHero title={product.name} />
 
-        <OverviewSection overview={product.overview[lang]} purpose={product.purpose.map((item) => ({ label: item.label[lang], text: item.text[lang] }))} label={copy.overview} />
+        <OverviewSection overview={product.overview[lang]} purpose={product.purpose.map((item) => ({ label: item.label[lang], text: item.text[lang] }))} label={copy.overview} stats={product.highlights.map((item) => ({ value: item.value, label: item.label[lang] }))} image={product.image} />
 
-        {product.qualifies && <QualifiesTicker label={copy.qualifies} items={product.qualifies.map((item) => item.text[lang])} />}
-
-        <LightSection>
+        <LightSection id="how-it-works">
           <CenteredHeading label={copy.howItWorks} title={copy.stepsTitle} />
           <ol className={`mt-12 grid gap-6 sm:grid-cols-2 lg:gap-8 ${stepColumns[product.steps.length] ?? 'lg:grid-cols-4'}`}>
             {product.steps.map((step, index) => (
@@ -88,6 +76,22 @@ export default function ProductPageContent({ slug }: { slug: string }) {
               </li>
             ))}
           </ol>
+          <div className="mt-20">
+            <Label text={copy.benefits} />
+            <div className={`mt-8 grid gap-4 max-[1100px]:grid-cols-2 max-[540px]:grid-cols-1 ${product.benefits.length === 5 ? 'grid-cols-5' : 'grid-cols-4'}`}>
+              {product.benefits.map((item, index) => {
+                const accent = accents[index % accents.length]
+                return (
+                  <article key={item.title.en} className="reveal group relative flex flex-col bg-[#fffaf8] p-6 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_44px_rgba(50,30,32,0.12)]" style={delay(200 + index * 90)}>
+                    <span className="grid size-10 place-items-center text-sm font-bold text-white" style={{ backgroundColor: accent }}>0{index + 1}</span>
+                    <h3 className="mt-5 text-[17px] font-bold leading-snug tracking-[-0.02em]">{item.title[lang]}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#5f5052]">{item.text[lang]}</p>
+                    <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" style={{ backgroundColor: accent }} />
+                  </article>
+                )
+              })}
+            </div>
+          </div>
           <div className="mt-12 flex items-center justify-between gap-6 border-t border-[#321e20]/10 pt-6 max-[760px]:flex-col max-[760px]:items-start">
             <p className="max-w-[720px] text-sm leading-6 text-[#76696a]">{copy.help}</p>
             <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#321e20]/[0.06] px-5 py-2.5 text-sm font-semibold text-[#321e20] transition hover:bg-[#ED2B2C] hover:text-white">{copy.talk} <span aria-hidden="true">↗</span></a>
@@ -112,18 +116,6 @@ export default function ProductPageContent({ slug }: { slug: string }) {
             </div>
           </DarkSection>
         )}
-
-        <LightSection>
-          <CenteredHeading label={copy.benefits} title={product.benefitsTitle[lang]} />
-          <div className={`mt-12 grid gap-6 max-[1000px]:grid-cols-2 max-[540px]:grid-cols-1 lg:gap-8 ${product.benefits.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
-            {product.benefits.map((item, index) => (
-              <div key={item.title.en} className="reveal" style={delay(560 + index * 120)}>
-                <AccentTitle accent={accents[index % accents.length]} delayMs={700 + index * 120}>{item.title[lang]}</AccentTitle>
-                <p className="mt-4 text-sm leading-6 text-[#5f5052]">{item.text[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </LightSection>
 
         {product.faq && (
           <DarkSection>
@@ -152,21 +144,8 @@ export default function ProductPageContent({ slug }: { slug: string }) {
   )
 }
 
-function DarkSection({ children, image }: { children: ReactNode; image?: string }) {
+function DarkSection({ children }: { children: ReactNode }) {
   const [ref, visible] = useReveal<HTMLElement>()
-
-  if (image) {
-    return (
-      <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative isolate w-full overflow-hidden bg-[#111315] py-12 text-white sm:py-16 lg:py-20`}>
-        <Image src={image} alt="" fill priority sizes="100vw" className={`z-0 object-cover object-[center_36%] transition-transform duration-[1400ms] ease-out ${visible ? 'scale-100' : 'scale-110 motion-reduce:scale-100'}`} aria-hidden="true" />
-        <div aria-hidden="true" className="absolute inset-0 z-0 bg-[linear-gradient(100deg,rgba(13,16,17,0.94)_0%,rgba(13,16,17,0.88)_48%,rgba(13,16,17,0.76)_100%)] max-[680px]:bg-[rgba(13,16,17,0.88)]" />
-        <span aria-hidden="true" className={`absolute left-0 top-0 z-10 h-px bg-gradient-to-l from-[#d6a53c] to-transparent transition-[width] duration-1000 ease-out ${visible ? 'w-1/2' : 'w-0'}`} />
-        <span aria-hidden="true" className={`absolute bottom-0 right-0 z-10 h-px bg-gradient-to-r from-[#d6a53c] to-transparent transition-[width] delay-300 duration-1000 ease-out ${visible ? 'w-1/2' : 'w-0'}`} />
-        <div className={container}>{children}</div>
-      </section>
-    )
-  }
-
   return (
     <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative isolate w-full overflow-hidden bg-[#191c1d] py-12 text-white sm:py-16 lg:py-20`}>
       <div aria-hidden="true" className="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(25,28,29,0.97)_0%,rgba(25,28,29,0.88)_48%,rgba(25,28,29,0.65)_100%)]" />
@@ -176,11 +155,10 @@ function DarkSection({ children, image }: { children: ReactNode; image?: string 
   )
 }
 
-function LightSection({ children }: { children: ReactNode }) {
+function LightSection({ children, id }: { children: ReactNode; id?: string }) {
   const [ref, visible] = useReveal<HTMLElement>()
   return (
-    <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative isolate w-full overflow-hidden bg-white px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24`}>
-      <TopographyLines />
+    <section ref={ref} id={id} className={`${visible ? 'is-visible ' : ''}relative isolate w-full scroll-mt-24 overflow-hidden bg-white px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24`}>
       <div className={columns}>{children}</div>
     </section>
   )
@@ -214,21 +192,36 @@ function AccentTitle({ children, accent, delayMs, dark = false }: { children: Re
   )
 }
 
-function OverviewSection({ overview, purpose, label }: { overview: string; purpose: { label: string; text: string }[]; label: string }) {
+function OverviewSection({ overview, purpose, label, stats, image }: { overview: string; purpose: { label: string; text: string }[]; label: string; stats: { value: string; label: string }[]; image: string }) {
   const [ref, visible] = useReveal<HTMLElement>()
 
   return (
-    <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative w-full bg-[#fffaf8] px-5 py-14 text-[#321e20] sm:px-8 sm:py-20 lg:px-12 lg:py-24`}>
-      <div className="mx-auto grid w-full max-w-[1240px] grid-cols-[1.15fr_0.85fr] items-start gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-        <div>
-          <Label text={label} />
-          <p className="reveal mt-6 border-l-[3px] border-[#ED2B2C] pl-6 text-[clamp(17px,1.35vw,20px)] leading-[1.75] text-[#5f5052]" style={delay(150)}>{overview}</p>
+    <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative isolate w-full overflow-hidden bg-[#111315] px-5 py-14 text-white sm:px-8 sm:py-20 lg:px-12 lg:py-24`}>
+      <Image src={image} alt="" fill sizes="100vw" className={`-z-20 object-cover object-[center_36%] transition-transform duration-[1400ms] ease-out ${visible ? 'scale-100' : 'scale-110 motion-reduce:scale-100'}`} aria-hidden="true" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,rgba(13,16,17,0.94)_0%,rgba(13,16,17,0.88)_48%,rgba(13,16,17,0.78)_100%)] max-[680px]:bg-[rgba(13,16,17,0.9)]" />
+      <span aria-hidden="true" className={`absolute left-0 top-0 h-px bg-gradient-to-l from-[#d6a53c] to-transparent transition-[width] duration-1000 ease-out ${visible ? 'w-1/2' : 'w-0'}`} />
+      <span aria-hidden="true" className={`absolute bottom-0 right-0 h-px bg-gradient-to-r from-[#d6a53c] to-transparent transition-[width] delay-300 duration-1000 ease-out ${visible ? 'w-1/2' : 'w-0'}`} />
+      <div className="mx-auto grid w-full max-w-[1240px] grid-cols-[1.15fr_0.85fr] items-stretch gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
+        <div className="flex flex-col">
+          <p className="reveal inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.16em] text-[#f0c76e]">
+            <span aria-hidden="true" className="reveal-rule h-px w-8 bg-[#d6a53c]" style={delay(150)} />{label}
+          </p>
+          <p className="reveal mt-6 border-l-[3px] border-[#ED2B2C] pl-6 text-[clamp(17px,1.35vw,20px)] leading-[1.75] text-white/85 min-[901px]:my-auto" style={delay(150)}>{overview}</p>
+          <dl className="mt-auto grid grid-cols-3 border-y border-white/15 max-[900px]:mt-10 max-[480px]:grid-cols-1">
+            {stats.map((item, index) => (
+              <div key={item.value} className={`reveal py-5 ${index > 0 ? 'border-l border-white/15 pl-6 max-[480px]:border-l-0 max-[480px]:border-t max-[480px]:pl-0' : ''}`} style={delay(250 + index * 120)}>
+                <dt className="sr-only">{item.label}</dt>
+                <dd className="text-[clamp(24px,2.4vw,32px)] font-bold leading-none tracking-[-0.04em]">{item.value}</dd>
+                <dd className="mt-2 text-sm leading-5 text-white/65">{item.label}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-        <div className="mt-44 border-t border-[#321e20]/10 max-[900px]:mt-0">
+        <div className="mt-44 border-t border-white/15 max-[900px]:mt-0">
           {purpose.map((item, index) => (
-            <div key={item.label} className="reveal border-b border-[#321e20]/10 py-4" style={delay(300 + index * 160)}>
+            <div key={item.label} className="reveal border-b border-white/15 py-4" style={delay(300 + index * 160)}>
               <h3 className="text-lg font-bold tracking-[-0.02em]">{item.label}</h3>
-              <p className="mt-2 text-[clamp(15px,1.15vw,17px)] leading-[1.7] text-[#5f5052]">{item.text}</p>
+              <p className="mt-2 text-[clamp(15px,1.15vw,17px)] leading-[1.7] text-white/75">{item.text}</p>
             </div>
           ))}
         </div>
@@ -237,24 +230,13 @@ function OverviewSection({ overview, purpose, label }: { overview: string; purpo
   )
 }
 
-function QualifiesTicker({ label, items }: { label: string; items: string[] }) {
-  const loop = [...items, ...items]
+function ProductHero({ title }: { title: string }) {
+  const [ref, visible] = useReveal<HTMLElement>()
   return (
-    <section aria-label={label} className="marquee relative flex w-full items-center overflow-hidden bg-[#111315] text-white">
-      <span className="relative z-10 flex shrink-0 items-center gap-2.5 self-stretch bg-[#ED2B2C] px-5 text-xs font-bold tracking-[0.16em] shadow-[12px_0_18px_rgba(17,19,21,0.9)] sm:px-8">
-        {label}
-        <span aria-hidden="true" className="absolute -right-[11px] top-1/2 size-0 -translate-y-1/2 border-y-[11px] border-l-[11px] border-y-transparent border-l-[#ED2B2C]" />
-      </span>
-      <div className="relative min-w-0 flex-1 overflow-hidden py-3.5 [mask-image:linear-gradient(90deg,black_0%,black_94%,transparent)]">
-        <ul className="marquee-track flex w-max items-center gap-10 pr-10">
-          {loop.map((item, index) => (
-            <li key={`${item}-${index}`} aria-hidden={index >= items.length} className="flex shrink-0 items-center gap-2.5 whitespace-nowrap text-sm font-medium text-white/85">
-              <span className="grid size-5 place-items-center rounded-full bg-[#f0c76e] text-[#111315]"><Check size={12} strokeWidth={3} aria-hidden="true" /></span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <section ref={ref} className={`${visible ? 'is-visible ' : ''}relative w-full border-b border-[#f1e4e1] bg-white px-5 pb-9 pt-[100px] text-center text-[#321e20] sm:px-8 sm:pb-10 sm:pt-[132px] lg:px-12`}>
+      <h1 className="reveal inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.16em] text-[#ED2B2C]">
+        <span aria-hidden="true" className="reveal-rule h-px w-8 bg-[#ED2B2C]" style={delay(150)} />{title}
+      </h1>
     </section>
   )
 }

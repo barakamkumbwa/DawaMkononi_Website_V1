@@ -9,6 +9,7 @@ export interface ProductPage {
   eyebrow: Text
   headline: Text
   tagline?: Text
+  heroIntro: Text
   overview: Text
   purpose: [{ label: Text; text: Text }, { label: Text; text: Text }]
   highlights: { value: string; label: Text }[]
@@ -27,11 +28,12 @@ export const productPages: ProductPage[] = [
     slug: 'dawa-kwanza',
     name: 'Dawa Kwanza',
     navDescription: { en: 'Stock financing', sw: 'Ufadhili wa stoo' },
-    image: '/pharmacist holding medicine.jpeg',
+    image: '/image copy 7.png',
     stepsImage: '/bodaman.png',
     eyebrow: { en: 'Stock financing', sw: 'Ufadhili wa stoo' },
     headline: { en: 'Get your stock today. Pay within 28 days.', sw: 'Pata stoo yako leo. Lipa ndani ya siku 28.' },
     tagline: { en: 'Dawa Kwanza — malipo baadaye.', sw: 'Dawa Kwanza — malipo baadaye.' },
+    heroIntro: { en: 'Stock financing for pharmacies, clinics and dispensaries — receive medicines now and repay within 28 days through M-Pesa.', sw: 'Ufadhili wa stoo kwa famasia, kliniki na zahanati — pokea dawa sasa na ulipe ndani ya siku 28 kupitia M-Pesa.' },
     overview: {
       en: 'Dawa Kwanza is Dawa Mkononi’s stock financing service for health facilities. It lets pharmacies, clinics and dispensaries receive the medicines they need now and pay later, so a tight week never means an empty shelf.',
       sw: 'Dawa Kwanza ni huduma ya Dawa Mkononi ya kufadhili stoo kwa vituo vya afya. Inawezesha famasia, kliniki na zahanati kupokea dawa wanazohitaji sasa na kulipa baadaye, ili wiki ngumu isimaanishe rafu tupu.',
@@ -82,6 +84,7 @@ export const productPages: ProductPage[] = [
     stepsImage: '/image copy 5.png',
     eyebrow: { en: 'Your ordering assistant', sw: 'Msaidizi wako wa kuagiza' },
     headline: { en: 'Tell Nora what you need. She builds your order.', sw: 'Mwambie Nora unachohitaji. Yeye anaandaa oda yako.' },
+    heroIntro: { en: 'Type, paste, snap or upload your list — Nora finds the products and builds your order, in Swahili or English.', sw: 'Andika, bandika, piga picha au pakia orodha yako — Nora anapata bidhaa na kuandaa oda yako, kwa Kiswahili au Kiingereza.' },
     overview: {
       en: 'Nora AI is the ordering assistant inside the Dawa Mkononi app. Type, paste a list, send a photo or upload a file, and Nora finds the products with their prices and builds your order. She remembers what you usually buy, speaks Swahili and English, and is free to use. Nothing is ordered until you tap confirm your order.',
       sw: 'Nora AI ni msaidizi wa kuagiza ndani ya App ya Dawa Mkononi. Andika, bandika orodha, tuma picha au pakia faili, na Nora atapata bidhaa pamoja na bei zake na kuandaa oda yako. Anakumbuka unachonunua mara kwa mara, anazungumza Kiswahili na Kiingereza, na ni bure. Hakuna kinachoagizwa mpaka ubonyeze kuthibitisha oda.',
@@ -140,6 +143,7 @@ export const productPages: ProductPage[] = [
     stepsImage: '/dawa.jpeg',
     eyebrow: { en: 'Point of sale', sw: 'Mfumo wa mauzo' },
     headline: { en: 'Run your pharmacy from your phone.', sw: 'Endesha famasia yako kutoka kwenye simu.' },
+    heroIntro: { en: 'Record sales, restocks and expiry dates in the same app you order from — free, with no paper book.', sw: 'Rekodi mauzo, stoo mpya na tarehe za kuisha muda kwenye App ile ile unayoagizia — bure, bila daftari.' },
     overview: {
       en: 'Dawa Mkononi POS is a point-of-sale tool built into the Dawa Mkononi app. Pharmacies and clinics record sales, restocks, stock levels and expiry dates in the same app they already use to order medicines — no extra system, no paper book.',
       sw: 'Dawa Mkononi POS ni zana ya mauzo iliyo ndani ya App ya Dawa Mkononi. Famasia na kliniki hurekodi mauzo, stoo mpya, viwango vya stoo na tarehe za kuisha muda kwenye App ile ile wanayotumia kuagiza dawa — bila mfumo wa ziada, bila daftari.',

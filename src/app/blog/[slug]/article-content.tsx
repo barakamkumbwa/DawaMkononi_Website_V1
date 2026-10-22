@@ -15,7 +15,7 @@ export default function ArticlePage({ article }: { article: Article }) {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-      <main className="bg-white pt-[72px] font-asap sm:pt-[118px]">
+      <main className="bg-white pt-16 font-asap sm:pt-24">
         <article className="mx-auto max-w-[820px] px-5 py-12 sm:px-8 sm:py-16">
           <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#76696a] transition hover:text-[#ED2B2C]">
             <ArrowLeft size={15} aria-hidden="true" /> Back to blog
